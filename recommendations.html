@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recomendações</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Filmes Recomendados Para Você</h1>
+        <div class="movies-grid" id="recommendationGrid">
+            <!-- Recomendações vão aparecer aqui -->
+        </div>
+    </div>
+
+    <script>
+        const recommendationGrid = document.getElementById('recommendationGrid');
+
+        // Recupera filmes selecionados na tela anterior
+        const selectedMovies = JSON.parse(localStorage.getItem('selectedMovies')) || [];
+
+        // Lista de todos os filmes disponíveis
+        // Para cada filme, você pode colocar:
+        // title: Nome do filme
+        // genre: Gênero do filme
+        // image: URL da imagem do cartaz
+        const allMovies = [
+            {title: "Matrix", genre: "Ação", image: "imagem/matrix.jpg"},
+            {title: "Vingadores", genre: "Ação", image: "imagens/vingadores.jpg"},
+            {title: "O Auto da Compadecida", genre: "Comédia", image: "imagens/auto_da_compadecida.jpg"},
+            {title: "A Vida é Bela", genre: "Drama", image: "imagens/vida_e_bela.jpg"},
+            {title: "It: A Coisa", genre: "Terror", image: "imagens/it.jpg"},
+            {title: "Diário de uma Paixão", genre: "Romance", image: "imagens/diario_paixao.jpg"},
+            // Adicione aqui outros filmes que quiser
+        ];
+
+        // Filtra recomendações baseado nos gêneros selecionados
+        const selectedGenres = selectedMovies.map(movie => movie.genre);
+        const recommended = allMovies.filter(movie => selectedGenres.includes(movie.genre));
+
+        // Cria os cards de filmes
+        recommended.forEach(movie => {
+            const card = document.createElement('div');
+            card.classList.add('movie-card');
+            card.innerHTML = `
+                <img src="${movie.image}" alt="${movie.title}">
+                <h3>${movie.title}</h3>
+                <p>Gênero: ${movie.genre}</p>
+            `;
+            recommendationGrid.appendChild(card);
+        });
+
+        if(recommended.length === 0){
+            recommendationGrid.innerHTML = "<p>Nenhuma recomendação disponível para os gêneros selecionados.</p>";
+        }
+    </script>
+</body>
+</html>

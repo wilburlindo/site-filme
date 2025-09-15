@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção de Filmes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Selecione os Filmes que Gostou</h1>
+        <div class="movies-grid">
+            <button class="movie-card" data-title="Filme 1" data-genre="Ação">
+                <img src="imagem/Rambo_Last_Blood.jpg" alt="Filme 1">
+                <h3>Rambo V</h3>
+                <p>Gênero: Ação</p>
+            </button>
+            <button class="movie-card" data-title="Filme 2" data-genre="Comédia">
+                <img src="https://via.placeholder.com/150x220.png?text=Filme+2" alt="Filme 2">
+                <h3>Comédia</h3>
+                <p>Gênero: Comédia</p>
+            </button>
+            <button class="movie-card" data-title="Filme 3" data-genre="Drama">
+                <img src="https://via.placeholder.com/150x220.png?text=Filme+3" alt="Filme 3">
+                <h3>Filme 3</h3>
+                <p>Gênero: Drama</p>
+            </button>
+            <!-- Adicione mais filmes aqui -->
+        </div>
+        <button id="nextBtn">Próximo</button>
+    </div>
+
+    <script>
+        const cards = document.querySelectorAll('.movie-card');
+        const nextBtn = document.getElementById('nextBtn');
+
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.toggle('selected');
+            });
+        });
+
+        nextBtn.addEventListener('click', () => {
+            const selectedMovies = [];
+            cards.forEach(card => {
+                if (card.classList.contains('selected')) {
+                    selectedMovies.push({
+                        title: card.dataset.title,
+                        genre: card.dataset.genre
+                    });
+                }
+            });
+
+            if(selectedMovies.length === 0){
+                alert("Selecione pelo menos um filme!");
+                return;
+            }
+
+            // Salva no localStorage
+            localStorage.setItem('selectedMovies', JSON.stringify(selectedMovies));
+
+            // Redireciona para a página de recomendações
+            window.location.href = 'recommendations.html';
+        });
+    </script>
+</body>
+</html>
