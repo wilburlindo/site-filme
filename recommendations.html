@@ -57,6 +57,24 @@
     </script>
 </body>
 </html>
+   recommended.forEach(movie => {
+            const card = document.createElement('div');
+            card.classList.add('movie-card');
+            card.innerHTML = `
+                <img src="${movie.image}" alt="${movie.title}">
+                <h3>${movie.title}</h3>
+                <p>Gênero: ${movie.genre}</p>
+            `;
+            recommendationGrid.appendChild(card);
+        });
+
+        if(recommended.length === 0){
+            recommendationGrid.innerHTML = "<p>Nenhuma recomendação disponível para os gêneros selecionados.</p>";
+        }
+    </script>
+</body>
+</html>
+
 
 
 
