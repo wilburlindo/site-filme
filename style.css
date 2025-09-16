@@ -129,8 +129,3 @@ h1 {
 .signup-text a:hover {
     text-decoration: underline;
 }
-.logo {
-    width: 120px;
-    display: block;
-    margin: 0 auto 20px auto;
-}
